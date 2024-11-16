@@ -21,7 +21,7 @@ THE SOFTWARE.
 */
 package main
 
-import "github.com/mirumirumo/cat_app/cmd"
+import "github.com/mirumirumo/ncbi-cli/cmd"
 
 func main() {
 	cmd.Execute()

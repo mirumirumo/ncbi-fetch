@@ -28,12 +28,12 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use: "cat_app",
+	Use: "ncbi-cli",
 }
 
 func Execute() error {
 	if err := rootCmd.Execute(); err != nil {
-		return fmt.Errorf("Error: The command can't. be executable. %w", err)
+		return fmt.Errorf("ncbi-cli can't. be executable.\n %w", err)
 	}
 	return nil
 }
