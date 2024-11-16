@@ -3,9 +3,8 @@ package cmd
 import (
 	"fmt"
 	"log"
-	"time"
 
-	"github.com/jlaffaye/ftp"
+	"github.com/mirumirumo/ncbi-cli/connect"
 	"github.com/spf13/cobra"
 )
 
@@ -17,25 +16,17 @@ var connectCmd = &cobra.Command{
 	Short: "connect to the ftp server",
 
 	Run: func(cmd *cobra.Command, args []string) {
-		c, err := ftp.Dial(SERVER, ftp.DialWithTimeout(5*time.Second))
+		c, cancel, err := connect.Connect()
+		defer cancel()
 		if err != nil {
-			log.Fatal(err)
-		}
-		defer func() {
-			if err := c.Quit(); err != nil {
-				log.Fatalf("Failed to close connection: %v", err)
-			}
-		}()
-
-		err = c.Login("anonymous", "anonymous")
-		if err != nil {
-			log.Fatal(err)
+			log.Fatalf("Failed to connect: %v", err)
 		}
 
 		entries, err := c.List("")
 		if err != nil {
 			log.Fatalf("Failed to list directory: %v", err)
 		}
+
 		for _, entry := range entries {
 			fmt.Println(entry.Name)
 		}
