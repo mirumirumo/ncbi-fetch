@@ -14,7 +14,8 @@ var connectCmd = &cobra.Command{
 	Short: "connect to the ftp server",
 
 	Run: func(cmd *cobra.Command, args []string) {
-		_, cancel, err := connect.Connect()
+		//connect the server via ftp
+		_, cancel, err := connect.ConnectFtp()
 		defer cancel()
 		if err != nil {
 			log.Fatalf("Failed to connect: %v", err)
@@ -23,7 +24,16 @@ var connectCmd = &cobra.Command{
 		if err != nil {
 			log.Fatalf("Failed to list directory: %v", err)
 		}
-		fmt.Printf("You can successfully connect to the NCBI ftp server: %s\n", connect.SERVER)
+		fmt.Printf("You can successfully connect to the NCBI ftp server: %s\n", connect.HOST)
+
+		//----------attempt to connect the server via sftp. However, this doesn't work now-----------
+		// _, sshCancel, sftpCancel, err := connect.ConnectSftp()
+		// defer sshCancel()
+		// defer sftpCancel()
+		// if err != nil {
+		// 	log.Fatalf("Failed to connect: %v", err)
+		// }
+		// fmt.Printf("You can successfully connect to the NCBI sftp server: %s\n", connect.HOST)
 
 	},
 }
