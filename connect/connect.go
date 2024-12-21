@@ -6,6 +6,7 @@ import (
 
 	"github.com/jlaffaye/ftp"
 	"github.com/pkg/sftp"
+	"github.com/secsy/goftp"
 	"golang.org/x/crypto/ssh"
 )
 
@@ -15,6 +16,14 @@ const USER string = "anonymous"
 const PASS string = ""
 
 func ConnectFtp() (*ftp.ServerConn, func() error, error) {
+	// FTPクライアントの設定
+	config := goftp.Config{
+		User:     USER,
+		Password: PASS,
+	}
+
+	// goftpを用いたclientを開発しよう
+	_, err := goftp.DialConfig(config, HOST)
 	c, err := ftp.Dial(fmt.Sprintf("%s:%d", HOST, PORT), ftp.DialWithTimeout(5*time.Second))
 	if err != nil {
 		return nil, nil, err
