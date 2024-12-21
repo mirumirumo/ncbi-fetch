@@ -24,9 +24,9 @@ func ConnectFtp() (*ftp.ServerConn, func() error, error) {
 	}
 	err = c.Login(USER, PASS)
 	if err != nil {
+		cancel()
 		return nil, cancel, err
 	}
-
 	return c, cancel, nil
 }
 
