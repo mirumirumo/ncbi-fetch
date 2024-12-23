@@ -1,0 +1,7 @@
+services:
+  cli:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
+    image: mirumirumo/ncbi-cli
