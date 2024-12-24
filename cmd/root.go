@@ -24,6 +24,7 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/mirumirumo/ncbi-cli/cmd/get"
 	"github.com/spf13/cobra"
 )
 
@@ -36,4 +37,8 @@ func Execute() error {
 		return fmt.Errorf("ncbi-cli can't. be executable.\n %w", err)
 	}
 	return nil
+}
+
+func init() {
+	rootCmd.AddCommand(get.GetCmd)
 }
