@@ -5,3 +5,8 @@ services:
       dockerfile: Dockerfile
       target: builder
     image: mirumirumo/ncbi-cli
+    environment:
+      - HOST="ftp.ncbi.nlm.nih.gov"
+      - PORT="21"
+      - USER="anonymous"
+      - PASS=""

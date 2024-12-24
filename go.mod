@@ -3,6 +3,7 @@ module github.com/mirumirumo/ncbi-cli
 go 1.23.3
 
 require (
+	github.com/caarlos0/env/v6 v6.10.1
 	github.com/jlaffaye/ftp v0.2.0
 	github.com/pkg/sftp v1.13.7
 	github.com/secsy/goftp v0.0.0-20200609142545-aa2de14babf4
