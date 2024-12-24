@@ -8,7 +8,7 @@ import (
 	"github.com/secsy/goftp"
 )
 
-func ConnectFtp() (*ftp.ServerConn, func() error, error) {
+func ConnectFtp() (*ftp.ServerConn, func(), error) {
 	// FTPクライアントの設定
 	config := goftp.Config{
 		User:     USER,
@@ -21,13 +21,13 @@ func ConnectFtp() (*ftp.ServerConn, func() error, error) {
 	if err != nil {
 		return nil, nil, err
 	}
-	cancel := func() error {
-		return c.Quit()
+	cancel := func() {
+		_ = c.Quit()
 	}
 	err = c.Login(USER, PASS)
 	if err != nil {
 		cancel()
-		return nil, cancel, err
+		return nil, nil, err
 	}
 	return c, cancel, nil
 }

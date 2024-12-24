@@ -7,7 +7,7 @@ import (
 	"golang.org/x/crypto/ssh"
 )
 
-func ConnectSftp() (*sftp.Client, func() error, func() error, error) {
+func ConnectSftp() (*sftp.Client, func(), error) {
 	config := &ssh.ClientConfig{
 		User: USER,
 		Auth: []ssh.AuthMethod{
@@ -17,19 +17,20 @@ func ConnectSftp() (*sftp.Client, func() error, func() error, error) {
 	}
 	conn, err := ssh.Dial("tcp", fmt.Sprintf("%s:%d", HOST, PORT), config)
 	if err != nil {
-		return nil, nil, nil, err
+		return nil, nil, err
 	}
-	sshCancel := func() error {
-		return conn.Close()
+	sshCancel := func() {
+		_ = conn.Close()
 	}
 	sftpClient, err := sftp.NewClient(conn)
 	if err != nil {
 		sshCancel()
-		return nil, nil, nil, err
+		return nil, nil, err
 	}
-	sftpCancel := func() error {
-		return sftpClient.Close()
+	sftpCancel := func() {
+		_ = sftpClient.Close()
+		_ = conn.Close()
 	}
-	return sftpClient, sshCancel, sftpCancel, nil
+	return sftpClient, sftpCancel, nil
 
 }
