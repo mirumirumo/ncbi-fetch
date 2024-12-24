@@ -15,7 +15,7 @@ var connectCmd = &cobra.Command{
 
 	Run: func(cmd *cobra.Command, args []string) {
 		//connect the server via ftp
-		_, cancel, err := connect.ConnectFtp()
+		_, cancel, err := connect.ConnectGoFtp()
 		defer cancel()
 		if err != nil {
 			log.Fatalf("Failed to connect: %v", err)
