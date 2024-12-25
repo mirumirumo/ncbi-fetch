@@ -29,7 +29,7 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use: "ncbi-cli",
+	Use: "ncbi-fetch",
 }
 
 func Execute() error {
