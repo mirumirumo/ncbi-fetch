@@ -4,7 +4,7 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 COPY . .
-RUN go build -trimpath -ldflags="-s -w" -o app
+RUN go build -trimpath -ldflags="-s -w" -o /app/out/app
 
 
 FROM debian:bullseye-slim AS deploy

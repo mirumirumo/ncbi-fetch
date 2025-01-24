@@ -10,3 +10,5 @@ services:
       - PORT="21"
       - USER="anonymous"
       - PASS=""
+    volumes:
+      - ./data:/app/output
