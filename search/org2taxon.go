@@ -19,7 +19,6 @@ type Taxonid struct {
 }
 
 func Org2Taxon(orgs []string) ([]byte, error) {
-	baseURL := "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
 	var taxonIDs []Taxonid
 
 	for _, org := range orgs {
@@ -29,7 +28,7 @@ func Org2Taxon(orgs []string) ([]byte, error) {
 		params.Add("retmode", "xml")
 		params.Add("retmax", "1")
 
-		resp, err := http.Get(baseURL + "?" + params.Encode())
+		resp, err := http.Get(EsearchURL + "?" + params.Encode())
 		if err != nil {
 			return nil, fmt.Errorf("failed to get: %w", err)
 		}
