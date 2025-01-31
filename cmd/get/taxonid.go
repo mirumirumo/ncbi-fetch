@@ -3,7 +3,7 @@ package get
 import (
 	"fmt"
 
-	"github.com/mirumirumo/ncbi-cli/search"
+	"github.com/mirumirumo/ncbi-cli/service/search"
 	"github.com/spf13/cobra"
 )
 
