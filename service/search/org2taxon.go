@@ -27,7 +27,7 @@ func Org2Taxon(orgs []string) ([]byte, error) {
 		esClient.SetParams("term", org)
 		esClient.SetParams("retmode", "xml")
 		esClient.SetParams("retmax", "1")
-		resp, err := esClient.GetClient()
+		resp, err := esClient.GetResponse()
 		if err != nil {
 			return nil, fmt.Errorf("failed to get: %w", err)
 		}
