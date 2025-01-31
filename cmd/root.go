@@ -24,7 +24,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/mirumirumo/ncbi-cli/cmd/get"
+	"github.com/mirumirumo/ncbi-fetch/cmd/get"
 	"github.com/spf13/cobra"
 )
 

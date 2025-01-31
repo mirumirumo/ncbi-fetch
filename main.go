@@ -21,7 +21,7 @@ THE SOFTWARE.
 */
 package main
 
-import "github.com/mirumirumo/ncbi-cli/cmd"
+import "github.com/mirumirumo/ncbi-fetch/cmd"
 
 func main() {
 	cmd.Execute()

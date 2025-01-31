@@ -1,4 +1,4 @@
-module github.com/mirumirumo/ncbi-cli
+module github.com/mirumirumo/ncbi-fetch
 
 go 1.23.3
 
