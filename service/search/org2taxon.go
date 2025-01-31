@@ -5,8 +5,8 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
-	"net/http"
-	"net/url"
+
+	"github.com/mirumirumo/ncbi-fetch/client/api"
 )
 
 type SearchResult struct {
@@ -22,13 +22,12 @@ func Org2Taxon(orgs []string) ([]byte, error) {
 	var taxonIDs []Taxonid
 
 	for _, org := range orgs {
-		params := url.Values{}
-		params.Add("db", "taxonomy")
-		params.Add("term", org)
-		params.Add("retmode", "xml")
-		params.Add("retmax", "1")
-
-		resp, err := http.Get(EsearchURL + "?" + params.Encode())
+		esClient := api.EsearchClient{}
+		esClient.SetParams("db", "taxonomy")
+		esClient.SetParams("term", org)
+		esClient.SetParams("retmode", "xml")
+		esClient.SetParams("retmax", "1")
+		resp, err := esClient.GetClient()
 		if err != nil {
 			return nil, fmt.Errorf("failed to get: %w", err)
 		}
