@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"io"
 
+	"github.com/mirumirumo/ncbi-fetch/client/api"
 	"github.com/mirumirumo/ncbi-fetch/domain"
-	"github.com/mirumirumo/ncbi-fetch/service/client/api"
 )
 
 type SearchResult struct {

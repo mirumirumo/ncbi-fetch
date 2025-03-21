@@ -1,7 +1,7 @@
 package connect
 
 import (
-	"github.com/mirumirumo/ncbi-fetch/service/client/config"
+	"github.com/mirumirumo/ncbi-fetch/client/config"
 	"github.com/secsy/goftp"
 )
 

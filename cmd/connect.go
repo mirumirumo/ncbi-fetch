@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/mirumirumo/ncbi-fetch/service/client/connect"
+	"github.com/mirumirumo/ncbi-fetch/client/connect"
 	"github.com/spf13/cobra"
 )
 
