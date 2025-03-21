@@ -6,7 +6,8 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/mirumirumo/ncbi-fetch/client/api"
+	"github.com/mirumirumo/ncbi-fetch/domain"
+	"github.com/mirumirumo/ncbi-fetch/service/client/api"
 )
 
 type SearchResult struct {
@@ -16,6 +17,37 @@ type SearchResult struct {
 type Taxonid struct {
 	Species string `json:"species"`
 	Taxonid string `json:"taxon_id"`
+}
+
+func (t *Taxonid) Get(client domain.ApiFetcher, input domain.GetInput) error {
+	for key, value := range input.Args {
+		// esClient := api.EsearchClient{}
+		if key != "species" {
+			continue
+		}
+		client.SetParams("db", "taxonomy")
+		client.SetParams("term", value)
+		client.SetParams("retmode", "xml")
+		client.SetParams("retmax", "1")
+		resp, err := client.GetResponse()
+		if err != nil {
+			return fmt.Errorf("failed to get: %w", err)
+		}
+		defer resp.Body.Close()
+
+		body, err := io.ReadAll(resp.Body)
+		if err != nil {
+			return fmt.Errorf("failed to read body: %w", err)
+		}
+		var result SearchResult
+		if err := xml.Unmarshal(body, &result); err != nil {
+			return fmt.Errorf("failed to unmarshal xml: %w", err)
+		}
+		t.Taxonid = result.IDs[0]
+		t.Species = value
+
+	}
+	return nil
 }
 
 func Org2Taxon(orgs []string) ([]byte, error) {

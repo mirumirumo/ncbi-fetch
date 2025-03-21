@@ -2,12 +2,12 @@ package domain
 
 type GetInput struct {
 	Entry TaxonID
-	Args  map[string]interface{}
+	Args  map[string]string
 }
 type Getter interface {
-	FetchFromAPI(input GetInput) error
+	Get(input GetInput) error
 }
 
-func NewGetInput(entry TaxonID, args map[string]interface{}) GetInput {
+func NewGetInput(entry TaxonID, args map[string]string) GetInput {
 	return GetInput{Entry: entry, Args: args}
 }
