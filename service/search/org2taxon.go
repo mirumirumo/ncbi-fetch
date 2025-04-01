@@ -10,6 +10,32 @@ import (
 	"github.com/mirumirumo/ncbi-fetch/domain"
 )
 
+type TaxonInfoGetter interface {
+	Get(species string) (domain.TaxonID, error)
+}
+type FetchTaxonInfo struct {
+	Getter TaxonInfoGetter
+}
+
+type FetchTaxonOutput struct {
+	Species []string         `json:"species"`
+	Taxonid []domain.TaxonID `json:"taxon_id"`
+}
+
+func (f *FetchTaxonInfo) Get(species []string) (FetchTaxonOutput, error) {
+	output := FetchTaxonOutput{}
+	for _, s := range species {
+		taxonId, err := f.Getter.Get(s)
+		if err != nil {
+			return output, fmt.Errorf("failed to get taxon info: %w", err)
+		}
+		output.Species = append(output.Species, s)
+		output.Taxonid = append(output.Taxonid, taxonId)
+
+	}
+	return output, nil
+}
+
 type SearchResult struct {
 	IDs []string `xml:"IdList>Id"`
 }
