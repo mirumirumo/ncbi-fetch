@@ -10,8 +10,18 @@ type EsearchClient struct {
 	params url.Values
 }
 
+func NewEsearchClient() *EsearchClient {
+	return &EsearchClient{
+		params: url.Values{},
+	}
+}
+
 func (e *EsearchClient) SetParams(params string, value string) {
 	e.params.Add(params, value)
+}
+
+func (e *EsearchClient) RefreshParams() {
+	e.params = url.Values{}
 }
 
 func (e *EsearchClient) GetResponse() (*http.Response, error) {

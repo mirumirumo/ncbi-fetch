@@ -3,7 +3,8 @@ package get
 import (
 	"fmt"
 
-	"github.com/mirumirumo/ncbi-fetch/service/search"
+	"github.com/mirumirumo/ncbi-fetch/adapter"
+	"github.com/mirumirumo/ncbi-fetch/client/api"
 	"github.com/spf13/cobra"
 )
 
@@ -17,12 +18,19 @@ var taxonidCmd = &cobra.Command{
 		if len(organisms) == 0 {
 			fmt.Println("Please specify the flag \"organism\" to get the taxon id")
 		}
-		taxonids, err := search.Org2Taxon(organisms)
+		esClient := api.NewEsearchClient()
+		getTaxonClient := adapter.NewGetTaxons(esClient)
+		taxonids, err := getTaxonClient.Get(organisms)
 		if err != nil {
 			fmt.Printf("Error: %v\n", err)
 		}
+		fmt.Printf("Taxon IDs: %v\n", taxonids)
+		// taxonids, err := search.Org2Taxon(organisms)
+		// if err != nil {
+		// 	fmt.Printf("Error: %v\n", err)
+		// }
 
-		fmt.Printf("%s", string(taxonids))
+		// fmt.Printf("%s", string(taxonids))
 	}}
 
 func init() {
