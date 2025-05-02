@@ -25,7 +25,7 @@ func (e *EsearchClient) RefreshParams() {
 }
 
 func (e *EsearchClient) GetResponse() (*http.Response, error) {
-	resp, err := http.Get(EsearchURL + "?" + e.params.Encode())
+	resp, err := http.Get(esearchURL + "?" + e.params.Encode())
 	if err != nil {
 		return nil, fmt.Errorf("failed to get: %w", err)
 	}
